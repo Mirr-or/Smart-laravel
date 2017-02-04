@@ -12,3 +12,6 @@ Route::group(['prefix' => 'news'], function($route){
 });
 
 Auth::routes();
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
