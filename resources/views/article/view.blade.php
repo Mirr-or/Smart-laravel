@@ -9,6 +9,12 @@
     <h2>{{ $article->title }}</h2>
     <p>{{ $article->body }}</p>
     <hr>
+    @if($article->tag->count())
+        @foreach($article->tag as $tag)
+            <span class="label label-danger">{{ $tag->title }}</span>
+        @endforeach
+    @endif
+    <hr>
 
     {{ Form::open(['route' => ['news.comment', 'article' => $article->slug]]) }}
         <div class="form-group">

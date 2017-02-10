@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Tag;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleRequest extends FormRequest
@@ -23,10 +24,13 @@ class ArticleRequest extends FormRequest
      */
     public function rules()
     {
+        $tagsId = Tag::pluck('id')->toArray();
+
         $rule = [
             'title' => 'required|min:3|max:140|unique:articles',
             'body' => 'required',
-            'short_description' => 'required|max:255'
+            'short_description' => 'required|max:255',
+            'tags.*' => 'in:' . implode(',', $tagsId)
         ];
 
         if ($this->route()->getName() == 'news.update') {
